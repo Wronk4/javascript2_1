@@ -56,8 +56,30 @@ cw1.addEventListener("click", function () {
       });
   })
 
-  cw3.addEventListener("click", function () {
-    //TODO
+cw3.addEventListener("click", function () {
+  
+  answer.textContent = "Processing…";
+  
+  const newPost = {
+    title: "Nowy post",
+    body: "Treść nowego posta",
+    userId: 1
+  };
+  
+  fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newPost)
   })
+    .then(response => response.json())
+    .then(data => {
+      answer.textContent = `Dodano nowy post o ID = ${data.id}`;
+    })
+    .catch(error => {
+      answer.textContent = `Błąd: ${error.message}`;
+    });
+});
 
 })();
