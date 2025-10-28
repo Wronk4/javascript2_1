@@ -15,17 +15,24 @@
   })
 
 cw1.addEventListener("click", function () {
-  fetch('https://jsonplaceholder.typicode.com/posts')
-    .then(response => response.json())
-    .then(posts => {
-      let html = '<ul>';
-      posts.forEach(post => {
-        html += `<li>${post.title}</li>`;
-        html += `${post.body}`;
+    answer.innerHTML = 'Loading…';
+    
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(response => response.json())
+      .then(posts => {
+        return new Promise(resolve => {
+          setTimeout(() => resolve(posts), 1000);
+        });
+      })
+      .then(posts => {
+        let html = '<ul>';
+        posts.forEach(post => {
+          html += `<li>${post.title}</li>`;
+          html += `${post.body}`;
+        });
+        html += '</ul>';
+        answer.innerHTML = html;
       });
-      html += '</ul>';
-      answer.innerHTML = html;
-    });
 })
 
   cw2.addEventListener("click", function () {
