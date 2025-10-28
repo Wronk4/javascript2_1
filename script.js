@@ -35,8 +35,25 @@ cw1.addEventListener("click", function () {
       });
 })
 
-  cw2.addEventListener("click", function () {
-    //TODO
+ cw2.addEventListener("click", function () {
+    const postSelect = document.getElementById('postSelect');
+    const postId = postSelect.value;
+    
+    answer.innerHTML = 'Loading…';
+    
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+      .then(response => response.json())
+      .then(post => {
+
+        let html = '<ul>';
+        html += `<li>${post.title}</li>`;
+        html += `${post.body}`;
+        html += '</ul>';
+        answer.innerHTML = html;
+      })
+      .catch(error => {
+        answer.innerHTML = `<p style="color: red;">Błąd: ${error.message}</p>`;
+      });
   })
 
   cw3.addEventListener("click", function () {
